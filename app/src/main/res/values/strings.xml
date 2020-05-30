@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CocktailApp</string>
+    <string name="action_settings" type="id">Settings</string>
+
+    <string name="SearchFragment">Search</string>
+    <string name="RecipeFragment">Cocktails</string>
+</resources>
