@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.htw_berlin.fb4.cocktailapp.R;
-import org.htw_berlin.fb4.cocktailapp.model.view.SearchViewModel;
+import org.htw_berlin.fb4.cocktailapp.model.dao.recipe.SearchViewModel;
 
 public class SearchFragment extends Fragment {
 

@@ -1,17 +1,9 @@
 package org.htw_berlin.fb4.cocktailapp.control;
 
-import org.htw_berlin.fb4.cocktailapp.model.Database;
-
 import java.util.ArrayList;
 
 
 public class SQLiteHandler implements dbHandler {
-
-    private final Database helper;
-
-    public SQLiteHandler(Database helper){
-        this.helper = helper;
-    }
 
 
     @Override

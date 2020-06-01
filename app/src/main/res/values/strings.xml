@@ -4,4 +4,6 @@
 
     <string name="SearchFragment">Search</string>
     <string name="RecipeFragment">Cocktails</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="cocktail_name">cocktail_name</string>
 </resources>

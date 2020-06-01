@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.model.view;
+package org.htw_berlin.fb4.cocktailapp.model.dao.recipe;
 
 import androidx.lifecycle.ViewModel;
 
