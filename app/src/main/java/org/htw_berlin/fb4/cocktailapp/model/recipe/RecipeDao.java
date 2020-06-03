@@ -13,7 +13,7 @@ import java.util.List;
 public interface RecipeDao {
     /**
      * Returns a list of recipes.
-     * @return
+     * @return LiveData<List<Recipe>>
      */
     @Query("SELECT * FROM recipe")
     LiveData<List<Recipe>> getRecipes();
@@ -21,28 +21,24 @@ public interface RecipeDao {
     /**
      * Add a recipe with all it data
      * @param recipe
-     * @return boolean if action was successful=1
      */
     @Insert
     void insert(Recipe recipe);
 
     /**
-     * Removes a recipe with
+     * Deletes a certain recipe
      * @param recipe
-     * @return boolean if action was successful=1
+     *
      */
     @Delete
     void delete(Recipe recipe);
 
+    /**
+     * Deletes all the data in the table
+     * (for debugging purposes)
+     */
     @Query("DELETE FROM recipe")
     void deleteAll();
 
-    /**
-     *
-     * @param name
-     * @return recipe
-     */
-//    @Query("SELECT * FROM recipe WHERE recipe.name = name")
-//    Recipe getRecipe(String name);
 
 }

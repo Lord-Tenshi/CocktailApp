@@ -10,30 +10,32 @@ import java.util.List;
 
 @Dao
 public interface IngredientDao {
-
     /**
-     *
-     * @return
+     * Returns a list of ingredients.
+     * @return LiveData<List<Ingredient>>
      */
      @Query("SELECT * FROM ingredient")
      LiveData<List<Ingredient>> getIngredients();
 
     /**
-     *
+     * Add an ingredient with all it data
      * @param ingredient
-     * @return
      */
     @Insert
     void insert(Ingredient ingredient);
 
     /**
-     *
+     * Deletes a certain ingredient
      * @param ingredient
-     * @return
+     *
      */
     @Delete
     void delete(Ingredient ingredient);
 
+    /**
+     * Deletes all the data in the table
+     * (for debugging purposes)
+     */
     @Query("DELETE FROM ingredient")
     void deleteAll();
 }

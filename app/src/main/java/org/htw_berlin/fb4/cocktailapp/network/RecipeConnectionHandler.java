@@ -1,6 +1,5 @@
 package org.htw_berlin.fb4.cocktailapp.network;
 
-
 import org.htw_berlin.fb4.cocktailapp.model.recipe.Recipe;
 
 import java.io.ByteArrayOutputStream;
@@ -67,7 +66,7 @@ public class RecipeConnectionHandler implements StreamHandler {
         if (this.usedIDs.contains(recipePDU.id)) {
             System.out.println("Log: id already exists: " + recipePDU.id);
         } else {
-            // now message do gossip
+            // now message do recipe
             System.out.println(this.name + ": got message: " + recipePDU);
             List<Integer> deadIDs = new ArrayList<>();
             for (Integer id : activeOutputStreams.keySet()) {
@@ -116,9 +115,9 @@ public class RecipeConnectionHandler implements StreamHandler {
             while (again) {
                 try {
                     // read pdu
-                    RecipePDU gossipPDU = new RecipePDU(is);
+                    RecipePDU recipePDU = new RecipePDU(is);
                     // handle pdu
-                    RecipeConnectionHandler.this.handlePDU(gossipPDU, this);
+                    RecipeConnectionHandler.this.handlePDU(recipePDU, this);
                 } catch (IOException | ClassNotFoundException e) {
                     // cannot recover from that.
                     RecipeConnectionHandler.this.inputStreamDead(id);
