@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 public interface StreamHandler {
     /**
-     *
+     *  abstracts stream handling from protocol
      * @param is an InputStream
      * @param op an OutputStream
      * @throws IOException

@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class BluetoothConnector {
+public class BluetoothConnector implements IBluetoothConnector {
     private static final int REQUEST_ENABLE_BT = 1;
     private BluetoothConnector connector = null;
     private BluetoothAdapter mBluetoothAdapter;
@@ -25,11 +25,12 @@ public class BluetoothConnector {
         return this.getClass().getSimpleName();
     }
 
+    @Override
     public void start() {
         Log.d(this.getLogStart(), "start bluetooth");
         this.setup();
     }
-
+    @Override
     public void stop() {
         Log.d(this.getLogStart(), "stop bluetooth");
         
