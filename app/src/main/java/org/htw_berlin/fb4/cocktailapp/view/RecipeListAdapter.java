@@ -9,9 +9,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.htw_berlin.fb4.cocktailapp.R;
-import org.htw_berlin.fb4.cocktailapp.model.dao.recipe.Recipe;
+import org.htw_berlin.fb4.cocktailapp.model.recipe.Recipe;
 
 import java.util.List;
+
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
@@ -25,7 +26,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     private final LayoutInflater mInflater;
-
     private List<Recipe> mRecipes; // Cached copy of words
 
     RecipeListAdapter(Context context) {
@@ -34,7 +34,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        View itemView = mInflater.inflate(R.layout.recyclerview_item_recipe, parent, false);
         return new RecipeViewHolder(itemView);
     }
 
@@ -45,12 +45,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             holder.recipeItemView.setText(current.getName());
         } else {
             // Covers the case of data not being ready yet.
-            holder.recipeItemView.setText("No Word");
+            holder.recipeItemView.setText("No recipes");
         }
     }
 
-    void setWords(List<Recipe> words) {
-        mRecipes = words;
+    void setRecipes(List<Recipe> recipes) {
+        mRecipes = recipes;
         notifyDataSetChanged();
     }
 
@@ -63,4 +63,5 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         else return 0;
     }
 }
+
 

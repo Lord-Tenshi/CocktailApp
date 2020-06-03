@@ -1,78 +1,69 @@
 package org.htw_berlin.fb4.cocktailapp.view;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.htw_berlin.fb4.cocktailapp.R;
-import org.htw_berlin.fb4.cocktailapp.bluetooth.BluetoothConnector;
+import org.htw_berlin.fb4.cocktailapp.model.recipe.Recipe;
+import org.htw_berlin.fb4.cocktailapp.model.recipe.RecipeViewModel;
+
+import static org.htw_berlin.fb4.cocktailapp.view.AddNewRecipeActivity.EXTRA_REPLY;
+
 
 public class MainActivity extends AppCompatActivity {
-    TabLayout mTabLayout;
-    ViewPager mViewPager;
-    private BluetoothConnector connector;
 
+    /**
+     * Activity that shows a recyclerview with recipes.
+     */
+
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private RecipeViewModel mRecipeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
-        mTabLayout = (TabLayout)findViewById(R.id.myTablayout);
-        mViewPager = (ViewPager)findViewById(R.id.myViewPager);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final RecipeListAdapter adapter = new RecipeListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mTabLayout.addTab(mTabLayout.newTab());
-        mTabLayout.addTab(mTabLayout.newTab());
+        // Get a new or existing ViewModel from the ViewModelProvider.
+        mRecipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
 
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        // Add an observer on the LiveData returned by getRecipes
+        // The onChanged() method fires when the observed data changes and the activity is
+        // in the foreground.
+        // Update the cached copy of the recipes in the adapter.
+        mRecipeViewModel.getAllRecipes().observe(this, adapter::setRecipes);
 
-        final MyAdapter adapter = new MyAdapter(this,getSupportFragmentManager(), mTabLayout.getTabCount());
-        mViewPager.setAdapter(adapter);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddNewRecipeActivity.class);
+            startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
         });
     }
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
 
-    public boolean onOptionsSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.action_settings:
-                return true;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            default:
-                return super.onOptionsItemSelected(item);
+        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle dataSet = data.getExtras();
+            Recipe recipe = (Recipe) dataSet.getParcelable(EXTRA_REPLY);
+            mRecipeViewModel.insert(recipe);
+            Log.d("RecipeActivity: ", "Received data from NewRecipeActivity!");
+        } else {
+            Log.d("RecipeActivity: ", "Didn't receive data from NewRecipeActivity!");
         }
     }
 }

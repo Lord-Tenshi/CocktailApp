@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.model.dao.ingredient;
+package org.htw_berlin.fb4.cocktailapp.model.ingredient;
 
 import android.app.Application;
 
@@ -12,9 +12,19 @@ public class IngredientRepository {
     private IngredientDao mIngredientDao;
     private LiveData<List<Ingredient>> mAllIngredients;
 
-    IngredientRepository(Application application){
+    public IngredientRepository(Application application){
         CocktailRoomDatabase db = CocktailRoomDatabase.getDatabase(application);
         mIngredientDao = db.ingredientDao();
         mAllIngredients = mIngredientDao.getIngredients();
+    }
+
+    public LiveData<List<Ingredient>> getIngredients() {
+        return mAllIngredients;
+    }
+
+    public void insert(Ingredient ingredient){
+        CocktailRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mIngredientDao.insert(ingredient);
+        });
     }
 }

@@ -1,12 +1,10 @@
-package org.htw_berlin.fb4.cocktailapp.bluetooth;
+package org.htw_berlin.fb4.cocktailapp.network;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class BluetoothConnector {
     private static final int REQUEST_ENABLE_BT = 1;

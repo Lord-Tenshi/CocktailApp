@@ -1,22 +1,21 @@
-package org.htw_berlin.fb4.cocktailapp.model.dao.ingredient;
+package org.htw_berlin.fb4.cocktailapp.model.ingredient;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
 
 @Dao
 public interface IngredientDao {
+
     /**
-     *
      *
      * @return
      */
-     @Query("SELECT * FROM ingredient WHERE Ingredient.name = name")
+     @Query("SELECT * FROM ingredient")
      LiveData<List<Ingredient>> getIngredients();
 
     /**
@@ -25,7 +24,7 @@ public interface IngredientDao {
      * @return
      */
     @Insert
-    boolean insertIngredient(Ingredient ingredient);
+    void insert(Ingredient ingredient);
 
     /**
      *
@@ -33,5 +32,8 @@ public interface IngredientDao {
      * @return
      */
     @Delete
-    boolean deleteIngredient(Ingredient ingredient);
+    void delete(Ingredient ingredient);
+
+    @Query("DELETE FROM ingredient")
+    void deleteAll();
 }

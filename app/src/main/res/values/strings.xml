@@ -6,4 +6,10 @@
     <string name="RecipeFragment">Cocktails</string>
     <string name="add_recipe">Add Recipe</string>
     <string name="cocktail_name">cocktail_name</string>
+    <string name="add_button">Add</string>
+    <string name="description_text">Description</string>
+    <string name="instructions_text">Instructions</string>
+    <string name="tools_text">Tools</string>
+    <string name="recipe_text">Cocktail name</string>
+    <string name="ingredient_name">Ingredient</string>
 </resources>

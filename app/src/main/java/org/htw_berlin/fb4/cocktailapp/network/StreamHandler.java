@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.bluetooth;
+package org.htw_berlin.fb4.cocktailapp.network;
 
 import java.io.IOException;
 import java.io.InputStream;
