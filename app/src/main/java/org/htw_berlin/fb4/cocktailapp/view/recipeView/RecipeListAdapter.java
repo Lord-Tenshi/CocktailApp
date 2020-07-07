@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.view;
+package org.htw_berlin.fb4.cocktailapp.view.recipeView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,27 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.htw_berlin.fb4.cocktailapp.R;
 import org.htw_berlin.fb4.cocktailapp.model.recipe.Recipe;
+import org.htw_berlin.fb4.cocktailapp.view.recyclerViewSelection.RecipeItemDetails;
 
 import java.util.List;
 
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder {
-        private final TextView recipeItemView;
+    private SelectionTracker mSelectionTracker;
 
-        private RecipeViewHolder(View itemView) {
-            super(itemView);
-            recipeItemView = itemView.findViewById(R.id.textView);
-        }
+    public void setSelectionTracker(SelectionTracker selectionTracker){
+        this.mSelectionTracker = selectionTracker;
     }
 
     private final LayoutInflater mInflater;
-    private List<Recipe> mRecipes; // Cached copy of words
+    private List<Recipe> mRecipes; // Cached copy of recipes
 
     RecipeListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -55,13 +54,30 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     // getItemCount() is called many times, and when it is first called,
-    // mWords has not been updated (means initially, it's null, and we can't return null).
+    // mRecipes has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
         if (mRecipes != null)
             return mRecipes.size();
         else return 0;
     }
+    public class RecipeViewHolder extends RecyclerView.ViewHolder {
+        private final TextView recipeItemView;
+
+        private RecipeViewHolder(View itemView) {
+            super(itemView);
+            recipeItemView = itemView.findViewById(R.id.textView);
+        }
+
+        void bind(boolean isSelected){
+            recipeItemView.setActivated((isSelected));
+        }
+
+        public RecipeItemDetails getItemDetails(){
+            return new RecipeItemDetails(getAdapterPosition(), mRecipes.get(getAdapterPosition()));
+        }
+    }
+
 }
 
 

@@ -7,7 +7,13 @@
         android:title="@string/action_settings"
         app:showAsAction="never"
         />
-
+    <item
+        android:id="@+id/action_share"
+        android:title="share"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        android:src="@drawable/ic_baseline_share_24"
+        />
 
 
 </menu>

@@ -5,18 +5,29 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
 
 @Dao
 public interface RecipeDao {
+
     /**
      * Returns a list of recipes.
-     * @return LiveData<List<Recipe>>
+     * @return List<Recipe>
      */
+    @Transaction
     @Query("SELECT * FROM recipe")
-    LiveData<List<Recipe>> getRecipes();
+    LiveData<List<Recipe>> getAllLiveRecipes();
+
+    /**
+     * Returns a list of recipes.
+     * @return List<Recipe>
+     */
+    @Transaction
+    @Query("SELECT * FROM recipe")
+    List<Recipe> getAllRecipes();
 
     /**
      * Add a recipe with all it data

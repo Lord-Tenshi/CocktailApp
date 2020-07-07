@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.network;
+package org.htw_berlin.fb4.cocktailapp.network.streamHandling;
 
 import java.io.IOException;
 import java.io.InputStream;

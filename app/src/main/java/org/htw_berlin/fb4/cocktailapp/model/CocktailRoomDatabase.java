@@ -35,6 +35,7 @@ public abstract class CocktailRoomDatabase extends RoomDatabase {
                             CocktailRoomDatabase.class,
                             "cocktail_database")
                             .addCallback(sRoomDatabaseCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
@@ -47,10 +48,18 @@ public abstract class CocktailRoomDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
             databaseWriteExecutor.execute(() -> {
-                RecipeDao dao = INSTANCE.recipeDao();
+
+                RecipeDao recipeDao = INSTANCE.recipeDao();
+                IngredientDao ingredientDao = INSTANCE.ingredientDao();
+
+                ingredientDao.deleteAll();
+                recipeDao.deleteAll();
+
+                Ingredient ingredient1 = new Ingredient("Gin", "Kaufland", "/");
+                ingredientDao.insert(ingredient1);
 
                 Recipe recipe1 = new Recipe("Bumble Bee", "das", "machste alles rein", "ist gut", "das");
-                dao.insert(recipe1);
+                recipeDao.insert(recipe1);
             });
         }
     };

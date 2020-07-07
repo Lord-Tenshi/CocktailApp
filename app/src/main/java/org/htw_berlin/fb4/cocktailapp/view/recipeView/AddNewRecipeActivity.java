@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.view;
+package org.htw_berlin.fb4.cocktailapp.view.recipeView;
 
 import android.content.Intent;
 import android.os.Bundle;

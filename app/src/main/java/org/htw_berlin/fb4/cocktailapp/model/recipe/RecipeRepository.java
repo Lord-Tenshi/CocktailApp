@@ -11,16 +11,19 @@ import java.util.List;
 
 public class RecipeRepository {
     private RecipeDao mRecipeDao;
-    private LiveData<List<Recipe>> mAllRecipes;
+    private LiveData<List<Recipe>> mAllLiveRecipes;
+    private List<Recipe> mAllRecipes;
 
     public RecipeRepository(Application application){
         CocktailRoomDatabase db = CocktailRoomDatabase.getDatabase(application);
         mRecipeDao = db.recipeDao();
-        mAllRecipes = mRecipeDao.getRecipes();
+        mAllRecipes = mRecipeDao.getAllRecipes();
+        mAllLiveRecipes = mRecipeDao.getAllLiveRecipes();
     }
 
-    public LiveData<List<Recipe>> getRecipes() {
-        return mAllRecipes;
+    public List<Recipe> getRecipes(){return mAllRecipes;}
+    public LiveData<List<Recipe>> getLiveRecipes() {
+        return mAllLiveRecipes;
     }
 
     public void insert(Recipe recipe){

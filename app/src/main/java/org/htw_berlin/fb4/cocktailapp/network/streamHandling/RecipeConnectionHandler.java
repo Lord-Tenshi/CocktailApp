@@ -1,4 +1,4 @@
-package org.htw_berlin.fb4.cocktailapp.network;
+package org.htw_berlin.fb4.cocktailapp.network.streamHandling;
 
 import org.htw_berlin.fb4.cocktailapp.model.recipe.Recipe;
 

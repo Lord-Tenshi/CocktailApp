@@ -19,16 +19,19 @@ public class RecipeViewModel extends AndroidViewModel {
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
-    private LiveData<List<Recipe>> mAllRecipes;
+    private LiveData<List<Recipe>> mAllLiveRecipes;
+    private List<Recipe> mAllRecipes;
 
     public RecipeViewModel(Application application) {
         super(application);
         mRepository = new RecipeRepository(application);
         mAllRecipes = mRepository.getRecipes();
+        mAllLiveRecipes = mRepository.getLiveRecipes();
     }
 
-    public LiveData<List<Recipe>> getAllRecipes() {
-        return mAllRecipes;
+    public List<Recipe> getRecipes(){return mAllRecipes;}
+    public LiveData<List<Recipe>> getLiveRecipes() {
+        return mAllLiveRecipes;
     }
 
     public void insert(Recipe recipe) {

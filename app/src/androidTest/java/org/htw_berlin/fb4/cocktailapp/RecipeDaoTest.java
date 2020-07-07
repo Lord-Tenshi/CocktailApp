@@ -49,7 +49,7 @@ public class RecipeDaoTest {
     public void insertRecipe() throws Exception {
         Recipe recipe = new Recipe("Bumble bee", "none", "do this and that", "good stuff", "path somewhere");
         mRecipeDao.insert(recipe);
-        List<Recipe> allRecipes = LiveDataTestUtil.getValue(mRecipeDao.getRecipes());
+        List<Recipe> allRecipes = LiveDataTestUtil.getValue(mRecipeDao.getAllLiveRecipes());
         assertEquals(allRecipes.get(0).getName(), recipe.getName());
     }
 
@@ -59,7 +59,7 @@ public class RecipeDaoTest {
         mRecipeDao.insert(recipe);
         Recipe recipe2 = new Recipe("White Russian", "none", "do this and that", "good stuff", "path somewhere");
         mRecipeDao.insert(recipe2);
-        List<Recipe> allRecipes = LiveDataTestUtil.getValue(mRecipeDao.getRecipes());
+        List<Recipe> allRecipes = LiveDataTestUtil.getValue(mRecipeDao.getAllLiveRecipes());
         assertEquals(allRecipes.get(0).getName(), recipe.getName());
         assertEquals(allRecipes.get(1).getName(), recipe2.getName());
     }
@@ -71,7 +71,7 @@ public class RecipeDaoTest {
         Recipe recipe2 = new Recipe("White Russian", "none", "do this and that", "good stuff", "path somewhere");
         mRecipeDao.insert(recipe2);
         mRecipeDao.deleteAll();
-        List<Recipe> allRecipes = LiveDataTestUtil.getValue(mRecipeDao.getRecipes());
+        List<Recipe> allRecipes = LiveDataTestUtil.getValue(mRecipeDao.getAllLiveRecipes());
         assertTrue(allRecipes.isEmpty());
     }
 }
